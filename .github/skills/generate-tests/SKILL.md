@@ -1,8 +1,8 @@
 ---
-mode: agent
+name: generate-tests
 description: Generate focused pytest coverage for Budget Buddy
+disable-model-invocation: true
 ---
-
 Generate focused pytest tests for the selected Budget Buddy module.
 
 Requirements:

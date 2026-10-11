@@ -1,0 +1,13 @@
+date,merchant,category,amount,type
+2026-06-01,Contoso Payroll,Income,5200.0,income
+2026-06-02,Northwind Grocers,Groceries,142.37,expense
+2026-06-03,City Transit,Transport,52.0,expense
+2026-06-04,Fourth Coffee,Dining,18.45,expense
+2026-06-05,Wide World Rent,Housing,1850.0,expense
+2026-06-08,Adventure Works Gym,Health,64.99,expense
+2026-06-09,Northwind Grocers,Groceries,91.12,expense
+2026-06-10,Blue Yonder Streaming,Entertainment,17.99,expense
+2026-06-11,City Power,Utilities,136.74,expense
+2026-06-12,Fabrikam Books,Education,44.5,expense
+2026-06-12,Fabrikam Books,Education,44.5,expense
+2026-06-15,Fourth Coffee,Dining,22.1,expense

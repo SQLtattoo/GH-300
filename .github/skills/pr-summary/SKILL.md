@@ -1,8 +1,8 @@
 ---
-mode: agent
+name: pr-summary
 description: Summarize the current diff as a pull request
+disable-model-invocation: true
 ---
-
 Summarize the current repository changes as a pull request description.
 
 Include:

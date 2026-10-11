@@ -1,8 +1,8 @@
 ---
-mode: agent
+name: agent-feature
 description: Implement a multi-file Budget Buddy feature
+disable-model-invocation: true
 ---
-
 Implement the requested Budget Buddy feature across code, tests, and docs.
 
 Expected workflow:

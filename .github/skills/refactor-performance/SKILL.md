@@ -1,8 +1,8 @@
 ---
-mode: agent
+name: refactor-performance
 description: Refactor inefficient Budget Buddy code
+disable-model-invocation: true
 ---
-
 Refactor the selected Budget Buddy code for performance while preserving behavior.
 
 Requirements:

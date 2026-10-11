@@ -1,8 +1,8 @@
 ---
-mode: agent
+name: security-review
 description: Review Budget Buddy for security issues
+disable-model-invocation: true
 ---
-
 Review the selected Budget Buddy code for security risks.
 
 Focus on:

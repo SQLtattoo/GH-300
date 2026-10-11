@@ -1,12 +1,12 @@
 ---
-mode: agent
+name: devops-snippet
 description: Generate or complete DevOps assets for Budget Buddy
+disable-model-invocation: true
 ---
-
 Help complete the DevOps assets in this repository.
 
 Targets:
-- [Dockerfile](../../Dockerfile): finish the image so `python main.py` runs in a container.
+- [Dockerfile](../../../Dockerfile): finish the image so `python main.py` runs in a container.
 - [.github/workflows/ci.yml](../../workflows/ci.yml): finish the pipeline so it installs
   dependencies from `requirements-test.txt` and runs `pytest`.
 
