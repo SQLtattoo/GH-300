@@ -11,5 +11,10 @@
         "~/.copilot/skills": true,
         "~/.claude/skills": true,
         "~/.vscode/extensions/synapsevscode.synapse-1.26.0/copilot/skills": true
-    }
+    },
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

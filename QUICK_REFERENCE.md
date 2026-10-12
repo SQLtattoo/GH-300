@@ -32,14 +32,9 @@ pytest --cov=. --cov-report=term-missing
 | 5 | AGENTS.md / Skills | [AGENTS.md](AGENTS.md), [.github/skills](.github/skills) | Show the agent operating manual and a `SKILL.md` playbook. |
 | 5 | PR summary | Git diff | `Summarize this diff as a pull request description.` |
 
-## Intentional Issues
+## Remaining Intentional Issues
 
-- `BudgetCalculator.average_expense()` fails on empty expense lists.
-- `BudgetCalculator.category_percentage()` divides by zero when total expenses are zero.
-- `BudgetCalculator.savings_rate()` divides by zero when income is zero.
-- `TransactionProcessor.group_expenses_by_category()` uses inefficient nested loops.
 - `TransactionProcessor.find_duplicate_transactions()` uses O(n^2) duplicate detection.
 - `TransactionProcessor.validate_transaction()` accepts negative amounts and unknown types.
-- `BudgetFileHandler.read_transactions_json()` does not block path traversal.
 - CSV parsing lacks clear errors for malformed rows.
-- TODOs are present for forecasting, budget alerts, CSV export, safe path resolution, sorting, merchant summaries, and spending alerts.
+- TODOs are present for budget alerts, CSV export, sorting, merchant summaries, and spending alerts.

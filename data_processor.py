@@ -38,19 +38,12 @@ class TransactionProcessor:
         """Return expense totals grouped by category."""
         self.processed_count += 1
         totals: Dict[str, float] = defaultdict(float)
-        expenses = self.expenses_only(transactions)
 
-        # PERFORMANCE ISSUE: This nested loop is easy to refactor with one pass.
-        for expense in expenses:
-            category = self.normalize_category(str(expense.get("category", "")))
-            for candidate in expenses:
-                candidate_category = self.normalize_category(str(candidate.get("category", "")))
-                if candidate_category == category:
-                    totals[category] += float(candidate.get("amount", 0))
-            expenses = [
-                item for item in expenses
-                if self.normalize_category(str(item.get("category", ""))) != category
-            ]
+        for transaction in transactions:
+            if transaction.get("type") != "expense":
+                continue
+            category = self.normalize_category(str(transaction.get("category", "")))
+            totals[category] += float(transaction.get("amount", 0))
 
         return dict(totals)
 

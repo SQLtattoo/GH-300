@@ -1,15 +1,16 @@
 # Budget Buddy - GitHub Copilot Demo Lab
 
-Budget Buddy is a small Python budget tracker designed for Microsoft GH-300 demonstrations. It is intentionally a **working but immature** app: the happy path runs, starter tests pass, coverage is low, and realistic TODOs, bugs, security issues, and performance problems are left for GitHub Copilot to improve.
+Budget Buddy is a small Python budget tracker designed for Microsoft GH-300 demonstrations. It is intentionally a **working but immature** app with realistic TODOs and performance problems for GitHub Copilot to improve. This walkthrough branch captures completed security, refactoring, DevOps, and unit-testing exercises.
 
 The goal is to show Copilot as more than autocomplete: codebase explanation, inline edits, agent mode, test generation, debugging, security review, refactoring, documentation, and PR-style summaries.
 
 ## Current Demo State
 
 - Runnable app: `python main.py`
-- Starter tests: 8 tests
-- Current coverage target: about 30%
-- Workshop goal: use Copilot to reach 90%+ coverage
+- Current tests: 30 tests
+- Current coverage: 85%+
+- Enforced coverage gate: 80%
+- Workshop stretch goal: 90%+ coverage
 - Intentional issues: documented in [INTENTIONAL_ISSUES.md](INTENTIONAL_ISSUES.md)
 - Trainer flow: documented in [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
 
@@ -46,12 +47,12 @@ Budget Buddy reads sample transactions from [data/sample_transactions.csv](data/
 | File | Purpose |
 | --- | --- |
 | [main.py](main.py) | Runnable demo app and report orchestration |
-| [calculator.py](calculator.py) | Budget calculations with intentional edge-case bugs |
+| [calculator.py](calculator.py) | Budget calculations with guarded zero-denominator edge cases |
 | [data_processor.py](data_processor.py) | Transaction filtering, grouping, duplicate detection, and TODOs |
-| [file_handler.py](file_handler.py) | CSV/JSON file I/O with an intentional path traversal gap |
+| [file_handler.py](file_handler.py) | CSV/JSON file I/O confined to a configured base directory |
 | [data_table.py](data_table.py) | Generic table helper used by the app |
 | [logger.py](logger.py) | Centralized logging utility |
-| [tests](tests) | Sparse starter tests for the coverage journey |
+| [tests](tests) | Pytest suite covering calculations, tables, file handling, logging, and processing |
 
 ## Demo Flow (GH-300 modules)
 
@@ -93,7 +94,9 @@ pytest
 pytest --cov=. --cov-report=term-missing
 ```
 
-During the demo, after Copilot generates enough tests and fixes, change the coverage threshold in [pytest.ini](pytest.ini) from `30` to `90` and rerun `pytest`.
+The starter baseline begins at 30%. This walkthrough branch enforces 80%; a
+trainer can continue adding tests and raise the threshold to the 90% stretch
+goal.
 
 ## Trainer Notes
 

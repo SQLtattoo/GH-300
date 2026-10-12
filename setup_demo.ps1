@@ -45,9 +45,9 @@ Write-Step "Running Budget Buddy app"
 Write-Ok "App runs"
 
 if (-not $SkipTests) {
-    Write-Step "Running starter test suite"
+    Write-Step "Running test suite"
     .\.venv\Scripts\python.exe -m pytest
-    Write-Ok "Starter tests passed"
+    Write-Ok "Tests passed"
 }
 
 Write-Step "Next demo commands"

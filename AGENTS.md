@@ -6,9 +6,9 @@ changes.
 ## What this project is
 
 Budget Buddy is a small Python budget tracker used for GitHub Copilot (GH-300)
-demonstrations. It is intentionally a **working but immature** app: the happy
-path runs, starter tests pass, coverage is low, and realistic TODOs, bugs,
-security gaps, and performance issues are left in place as teaching material.
+demonstrations. It is intentionally a **working but immature** app. The main
+branch provides the starter baseline, while feature branches may capture
+completed workshop stages with higher coverage and selected issues resolved.
 
 Do not remove the intentional issues unless the user explicitly asks to move
 toward the completed/reference state. If you fix one, update
@@ -24,8 +24,8 @@ pytest                           # run tests with coverage gate
 pytest --cov=. --cov-report=term-missing
 ```
 
-The coverage gate lives in [pytest.ini](pytest.ini). It starts at 30 and is
-raised to 90 during the unit-test demo.
+The coverage gate lives in [pytest.ini](pytest.ini). The starter baseline begins
+at 30%; completed workshop branches can raise it as tests are added.
 
 ## Conventions
 

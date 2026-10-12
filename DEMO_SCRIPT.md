@@ -312,7 +312,7 @@ Talking points:
 ### 2d. Focused context (security example)
 
 The course shows a "review this banking app for security" prompt. The Budget
-Buddy equivalent is the path-traversal gap in file handling. Select
+Buddy equivalent is reviewing file handling for path traversal. Select
 [file_handler.py](file_handler.py) and ask:
 
 ```text
@@ -323,8 +323,9 @@ plain the risk before changing code.
 Emphasize how a focused prompt plus repo context produces a better answer than a
 vague one.
 
-> Presenter note: the path-traversal gap is in `read_transactions_json`, logged
-> in [INTENTIONAL_ISSUES.md](INTENTIONAL_ISSUES.md#L13) (Security row).
+> Presenter note: the remediated implementation centralizes canonical path
+> containment checks in `_resolve_safe_path`; use repository history when
+> demonstrating discovery and remediation of the original gap.
 
 ---
 
@@ -343,6 +344,10 @@ Open [calculator.py](calculator.py) and implement `forecast_month_end_spend()` o
 ```text
 Transform group_expenses_by_category in data_processor.py into a single-pass aggregation.
 ```
+
+> Presenter note: the completed implementation performs the aggregation in one
+> pass; use repository history when demonstrating the original nested-loop
+> implementation.
 
 ### 3c. Optimize (performance)
 
@@ -363,7 +368,7 @@ Add concise docstrings and type hints to the public methods in calculator.py.
 
 ### 3e. DevOps snippets
 
-The repo ships a `Dockerfile` and a CI workflow with intentional TODOs. Ask:
+The repo ships a `Dockerfile` and CI workflow for the DevOps exercise. Ask:
 
 ```text
 Complete the Dockerfile to run Budget Buddy, then finish the GitHub Actions workflow to install deps and run pytest.
@@ -393,11 +398,10 @@ Generate focused pytest tests for BudgetCalculator edge cases, including empty t
 
 You can also use `@workspace /tests` on a selected function.
 
-> Presenter note: the calculator edge-case bugs (empty expenses, category
-> percentage, savings rate) are listed in
-> [INTENTIONAL_ISSUES.md](INTENTIONAL_ISSUES.md#L9) (rows 9-11). Input
-> validation lives at
-> [INTENTIONAL_ISSUES.md](INTENTIONAL_ISSUES.md#L12).
+> Presenter note: empty expenses, zero-expense percentages, and zero-income
+> savings rates are the starter-state red-green examples. The completed state
+> records them under **Resolved Issues** in
+> [INTENTIONAL_ISSUES.md](INTENTIONAL_ISSUES.md).
 
 ### 4c. Run, verify, and fix (red-green loop)
 
@@ -617,8 +621,8 @@ Demo tip: combine them — e.g. `@workspace /tests #file:calculator.py` says
 
 If live generation runs long, implement one narrow slice end to end:
 
-1. Fix `savings_rate()` zero-income behavior (Module 2/4).
-2. Add tests for it (Module 4).
+1. Start from the calculator's zero-income behavior (Module 2/4).
+2. Add the focused regression test and guard (Module 4).
 3. Rerun `pytest`.
 4. Ask Copilot to summarize the diff (Module 5).
 
