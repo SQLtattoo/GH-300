@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added a sparse starter pytest suite designed to begin around 30% coverage.
 - Added [DEMO_SCRIPT.md](DEMO_SCRIPT.md) for trainer delivery flow.
 - Added [INTENTIONAL_ISSUES.md](INTENTIONAL_ISSUES.md) documenting deliberate bugs, TODOs, security gaps, and performance issues.
-- Added reusable Copilot prompt files under [.github/prompts](.github/prompts).
+- Added reusable Copilot Skills under [.github/skills](.github/skills).
 
 ### Changed
 - Simplified console logging to show report messages without timestamp, logger name, or level prefixes.

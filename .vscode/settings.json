@@ -2,5 +2,14 @@
     // Always open classic editor Inline Chat with Ctrl+I, even when a file
     // is part of an active chat session. Without this, Ctrl+I shows
     // "Ask in Chat" instead of "Open Inline Chat".
-    "inlineChat.askInChat": false
+    "inlineChat.askInChat": false,
+    "chat.agentSkillsLocations": {
+        ".agents/skills": true,
+        ".github/skills": true,
+        ".claude/skills": true,
+        "~/.agents/skills": true,
+        "~/.copilot/skills": true,
+        "~/.claude/skills": true,
+        "~/.vscode/extensions/synapsevscode.synapse-1.26.0/copilot/skills": true
+    }
 }

@@ -59,27 +59,29 @@ The trainer flow in [DEMO_SCRIPT.md](DEMO_SCRIPT.md) is aligned to the five
 course modules:
 
 1. **Module 1 — Introduction:** run `setup_demo.ps1` and `python main.py` to frame the use case.
-2. **Module 2 — Exploring Features:** Chat, Inline Chat, CLI, and prompts with context (security review of file handling).
+2. **Module 2 — Exploring Features:** Chat, Inline Chat, CLI, and focused context (security review of file handling).
 3. **Module 3 — Developer Use Cases:** generate, transform, optimize, document, and a DevOps beat (Dockerfile + CI).
 4. **Module 4 — Building Unit Tests:** the coverage journey from ~30% to 90%+.
-5. **Module 5 — Advanced Capabilities:** Agent Mode, `AGENT.md`, Skills, MCP, and PR review/summary.
+5. **Module 5 — Advanced Capabilities:** Agent Mode, `AGENTS.md`, Skills, MCP, and PR review/summary.
 
-## Useful Copilot Prompts
+## Useful Copilot Skills
 
-Reusable prompts live in [.github/prompts](.github/prompts):
+Reusable task playbooks live in [.github/skills](.github/skills):
 
-- `generate-tests.prompt.md`
-- `security-review.prompt.md`
-- `refactor-performance.prompt.md`
-- `agent-feature.prompt.md`
-- `devops-snippet.prompt.md`
-- `pr-summary.prompt.md`
+- `generate-tests`
+- `security-review`
+- `refactor-performance`
+- `agent-feature`
+- `devops-snippet`
+- `pr-summary`
+- `run-coverage`
+- `add-budget-report-section`
 
 ## Agent Customization Assets
 
 Module 5 showcases how Copilot follows project-level guidance:
 
-- [AGENT.md](AGENT.md) — operating manual for agents in this repo.
+- [AGENTS.md](AGENTS.md) — operating manual for agents in this repo.
 - [.github/copilot-instructions.md](.github/copilot-instructions.md) — repo-wide rules.
 - [.github/skills](.github/skills) — task playbooks (`SKILL.md`), e.g. adding a budget report section.
 

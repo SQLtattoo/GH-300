@@ -29,7 +29,7 @@ pytest --cov=. --cov-report=term-missing
 | 4 | Generate tests | [tests](tests) | `Use the generate-tests prompt and raise coverage toward 90%.` |
 | 4 | Fix bugs | [calculator.py](calculator.py) | `Find edge cases in BudgetCalculator and fix them with tests.` |
 | 5 | Agent mode | Multiple files | `Add CSV export with tests, docs, and changelog updates.` |
-| 5 | AGENT.md / Skills | [AGENT.md](AGENT.md), [.github/skills](.github/skills) | Show the agent operating manual and a `SKILL.md` playbook. |
+| 5 | AGENTS.md / Skills | [AGENTS.md](AGENTS.md), [.github/skills](.github/skills) | Show the agent operating manual and a `SKILL.md` playbook. |
 | 5 | PR summary | Git diff | `Summarize this diff as a pull request description.` |
 
 ## Intentional Issues

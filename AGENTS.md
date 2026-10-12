@@ -1,4 +1,4 @@
-# AGENT.md — Budget Buddy
+# AGENTS.md — Budget Buddy
 
 Operating manual for AI agents working in this repository. Read this before making
 changes.
@@ -46,5 +46,4 @@ raised to 90 during the unit-test demo.
 ## Related guidance
 
 - Repo-wide rules: [.github/copilot-instructions.md](.github/copilot-instructions.md)
-- Reusable prompts: [.github/prompts](.github/prompts)
-- Task playbooks (Skills): [.github/skills](.github/skills)
+- Reusable task playbooks: [.github/skills](.github/skills)

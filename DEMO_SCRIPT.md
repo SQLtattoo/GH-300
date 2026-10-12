@@ -9,10 +9,10 @@ Pick the depth that fits your time slot (45-90 minutes).
 | Module | Theme | Budget Buddy demo | Key assets |
 | --- | --- | --- | --- |
 | 1 | Introduction to GitHub Copilot | Set up, run the app, explain repository instructions | `setup_demo.ps1`, `.github/copilot-instructions.md` |
-| 2 | Exploring Copilot's Features | Chat, Inline Chat, CLI, prompts with context | `calculator.py`, `.github/prompts` |
+| 2 | Exploring Copilot's Features | Chat, Inline Chat, CLI, focused context | `calculator.py`, `file_handler.py` |
 | 3 | Developer Use Cases | Generate, transform, optimize, document, DevOps | `data_processor.py`, `Dockerfile`, CI |
 | 4 | Building Unit Tests | The coverage journey from ~30% to 90%+ | `tests`, `pytest.ini` |
-| 5 | Advanced Capabilities | Agent Mode, AGENT.md, SKILLs, MCP, PR review | `AGENT.md`, agent + PR prompts |
+| 5 | Advanced Capabilities | Agent Mode, AGENTS.md, Skills, MCP, PR review | `AGENTS.md`, `.github/skills` |
 
 > Python note for Module 4: the course slides use C# / xUnit / a BankAccount
 > sample. This repo is Python / pytest. Map the concepts directly: Test Explorer
@@ -116,7 +116,7 @@ the point that everything is just text and that workspace settings (this repo's
 | `chat.tools.autoApprove` | Auto-run tools without confirmation — good trust/safety talking point. |
 | `chat.mcp.enabled` | Enables Model Context Protocol servers (Module 5). |
 | `github.copilot.chat.codeGeneration.useInstructionFiles` | Makes Copilot honor `.github/copilot-instructions.md`. |
-| `chat.promptFiles` | Enables reusable `.prompt.md` files in `.github/prompts`. |
+| `chat.agentSkillsLocations` | Configures the workspace and user locations where Copilot discovers Skills. |
 | `telemetry.telemetryLevel` | Privacy/enterprise trust — what data is sent. |
 
 > This repo preconfigures `inlineChat.askInChat: false` in `.vscode/settings.json`
@@ -309,11 +309,11 @@ Talking points:
 - Both honor repo context, so answers are tailored to Budget Buddy (pytest, the
   `.venv`, the coverage gate) rather than generic.
 
-### 2d. Prompts and providing context (security example)
+### 2d. Focused context (security example)
 
 The course shows a "review this banking app for security" prompt. The Budget
-Buddy equivalent is the path-traversal gap in file handling. Use
-[.github/prompts/security-review.prompt.md](.github/prompts/security-review.prompt.md):
+Buddy equivalent is the path-traversal gap in file handling. Select
+[file_handler.py](file_handler.py) and ask:
 
 ```text
 Review file_handler.py for path traversal and unsafe file handling. Ex
@@ -346,7 +346,7 @@ Transform group_expenses_by_category in data_processor.py into a single-pass agg
 
 ### 3c. Optimize (performance)
 
-Use [.github/prompts/refactor-performance.prompt.md](.github/prompts/refactor-performance.prompt.md):
+Ask Copilot:
 
 ```text
 Refactor duplicate detection in data_processor.py to avoid O(n^2) behavior while preserving output.
@@ -363,8 +363,7 @@ Add concise docstrings and type hints to the public methods in calculator.py.
 
 ### 3e. DevOps snippets
 
-Use [.github/prompts/devops-snippet.prompt.md](.github/prompts/devops-snippet.prompt.md).
-The repo ships a `Dockerfile` and a CI workflow with intentional TODOs:
+The repo ships a `Dockerfile` and a CI workflow with intentional TODOs. Ask:
 
 ```text
 Complete the Dockerfile to run Budget Buddy, then finish the GitHub Actions workflow to install deps and run pytest.
@@ -386,7 +385,7 @@ Expected: starter tests pass, coverage around 30%.
 
 ### 4b. Generate tests
 
-Use [.github/prompts/generate-tests.prompt.md](.github/prompts/generate-tests.prompt.md):
+Ask Copilot:
 
 ```text
 Generate focused pytest tests for BudgetCalculator edge cases, including empty transactions, zero income, zero expenses, and history behavior.
@@ -460,9 +459,9 @@ multi-file scope explicit without giving away the implementation.
 ### 5b. Agent Mode multi-file feature
 
 Switch to **Agent** mode and enter a deliberately minimal request directly in
-Chat. Do not invoke `/agent-feature` for this demonstration because that saved
-prompt explicitly includes tests, docs, changelog, and validation steps; here we
-want the repository instructions to be the only source of those requirements.
+Chat. Do not invoke `/agent-feature` for this demonstration because that Skill
+explicitly includes tests, docs, changelog, and validation steps; here we want
+the repository instructions to be the only source of those requirements.
 
 ```text
 Add CSV export support for transactions.
@@ -486,14 +485,14 @@ Narration:
 > these changes are not what the team wants, we improve the checked-in policy
 > instead of correcting every future prompt."
 
-### 5c. AGENT.md and Skills
+### 5c. AGENTS.md and Skills
 
-Open [AGENT.md](AGENT.md) and [.github/copilot-instructions.md](.github/copilot-instructions.md).
+Open [AGENTS.md](AGENTS.md) and [.github/copilot-instructions.md](.github/copilot-instructions.md).
 
 Narration:
 
 > "Copilot reads project files that describe *how we work*. `copilot-instructions.md`
-> sets repo-wide rules, and `AGENT.md` gives an agent its operating manual for this
+> sets repo-wide rules, and `AGENTS.md` gives an agent its operating manual for this
 > repo — build and test commands, conventions, and guardrails. Because these live
 > in the repo, every teammate and every Copilot session follows the same playbook.
 > We introduced minimal always-on instructions in Module 1, expanded them into a
@@ -506,14 +505,15 @@ and show its structure.
 
 Narration:
 
-> "Skills are reusable, model-invoked playbooks. A `SKILL.md` packages domain
+> "Skills are reusable, on-demand playbooks. A `SKILL.md` packages domain
 > knowledge and step-by-step instructions for a specific task — here, 'add a new
-> budget report section' — with a name and description Copilot matches against
-> your request. Unlike a one-off prompt, a Skill is discoverable and shareable:
-> drop it in the repo and Copilot pulls in the full instructions only when the
-> task is relevant, so the right expertise shows up automatically without bloating
-> every prompt. Think of instructions as *always-on rules*, prompts as *something
-> you trigger*, and Skills as *expertise Copilot reaches for on demand*."
+> budget report section' — with a name and description Copilot can match against
+> your request. Skills can be discovered automatically or invoked explicitly with
+> `/`; the migrated workshop Skills set `disable-model-invocation: true` so the
+> trainer controls exactly when they run. Copilot loads the full instructions only
+> when the Skill is invoked, avoiding unnecessary context. Think of instructions
+> as *always-on rules*, prompts as *single focused task templates*, and Skills as
+> *reusable workflows that can also bundle scripts and reference material*."
 
 Optional live beat:
 
@@ -556,8 +556,8 @@ Create a pull request for my current branch. Write a title and description summa
 ```
 
 Copilot reads the diff (`#changes`), drafts the title/body, and opens the PR. You
-can also draft the body first with
-[.github/prompts/pr-summary.prompt.md](.github/prompts/pr-summary.prompt.md):
+can also draft the body first with the
+[pr-summary Skill](.github/skills/pr-summary/SKILL.md):
 
 ```text
 Summarize the current diff as a pull request description with test results and risk notes.
@@ -589,18 +589,18 @@ you're addressing. Type each one live and let the menu pop up.
 
 | Key | What it is | Example |
 | --- | --- | --- |
-| `/` | **Slash commands** — built-in intents *plus* this repo's prompt files | `/explain`, `/tests`, `/fix`, and `/agent-feature`, `/security-review` |
+| `/` | **Slash commands** — built-in intents plus this repo's Skills | `/explain`, `/tests`, `/fix`, and `/agent-feature`, `/security-review` |
 | `@` | **Participants** — scope *who* answers | `@workspace`, `@terminal`, `@vscode` |
 | `#` | **Context references** — attach *what* to look at | `#file`, a selected symbol, `#changes` |
 
 Talking points:
 
 - **`/` (slash):** the fastest shortcuts. Built-ins like `/explain`, `/tests`,
-  `/fix`, `/doc`, and `/new` are just one-word versions of common requests.
-  Because this repo enables `chat.promptFiles`, every `.prompt.md` in
-  [.github/prompts](.github/prompts) *also* appears here. `/agent-feature` is the
-  reusable, explicit-workflow alternative to the minimal request used in Module
-  5b; it packages code, tests, docs, changelog, and validation into one command.
+  `/fix`, `/doc`, and `/new` are one-word versions of common requests. Skills
+  under [.github/skills](.github/skills) also appear here because they are
+  user-invocable by default. `/agent-feature` is the reusable, explicit-workflow
+  alternative to the minimal request used in Module 5b; it packages code, tests,
+  docs, changelog, and validation into one command.
 - **`@` (participants):** decide who handles the question. `@workspace` reasons
   over the whole repo, `@terminal` specializes in shell commands (see 2c), and
   `@vscode` answers editor/settings questions.
