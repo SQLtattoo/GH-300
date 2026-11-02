@@ -29,7 +29,12 @@ class BudgetFileHandler:
 
     def _resolve_safe_path(self, filename: str) -> Path:
         """Resolve a relative filename inside base_path, following links."""
-        if not filename or ntpath.isabs(filename) or ntpath.splitdrive(filename)[0]:
+        if (
+            not filename
+            or Path(filename).is_absolute()
+            or ntpath.isabs(filename)
+            or ntpath.splitdrive(filename)[0]
+        ):
             raise ValueError("Filename must be a nonempty relative path")
 
         base = Path(self.base_path).resolve()

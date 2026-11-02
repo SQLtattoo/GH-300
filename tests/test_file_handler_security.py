@@ -63,6 +63,16 @@ def test_rejects_absolute_paths(tmp_path: Path, operation: str) -> None:
 
 
 @pytest.mark.parametrize("operation", OPERATIONS)
+def test_rejects_posix_absolute_paths(tmp_path: Path, operation: str) -> None:
+    handler = BudgetFileHandler(str(tmp_path))
+
+    with pytest.raises(ValueError):
+        _perform(handler, operation, "/tmp/outside.json")
+
+    assert handler.get_processed_files() == []
+
+
+@pytest.mark.parametrize("operation", OPERATIONS)
 def test_rejects_symlink_escape(tmp_path: Path, operation: str) -> None:
     base = tmp_path / "base"
     base.mkdir()
