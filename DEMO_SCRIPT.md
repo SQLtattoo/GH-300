@@ -363,7 +363,8 @@ Add concise docstrings and type hints to the public methods in calculator.py.
 
 ### 3e. DevOps snippets
 
-The repo ships a `Dockerfile` and a CI workflow with intentional TODOs. Ask:
+The Dockerfile and CI workflow are now complete. Review their implementations
+using the original exercise prompt:
 
 ```text
 Complete the Dockerfile to run Budget Buddy, then finish the GitHub Actions workflow to install deps and run pytest.
@@ -626,21 +627,20 @@ If live generation runs long, implement one narrow slice end to end:
 
 ## Annex A — DevOps files (`Dockerfile` and CI workflow)
 
-Module 3e references these two files, but they ship **intentionally incomplete**
-so you can complete them live with Copilot. This annex is a self-contained,
+Module 3e references these two files, which are now complete. The original
+generation prompts below can be used to review the result. This annex is a self-contained,
 optional deep-dive you can run any time you want a DevOps beat. Neither file is
 exercised by `pytest`, so finishing them won't affect the coverage journey.
 
-### Starting state
+### Completed state
 
-| File | What's missing |
+| File | What's implemented |
 | --- | --- |
-| [Dockerfile](Dockerfile) | `WORKDIR`, dependency install, app copy, and the run command are TODO stubs. |
-| [.github/workflows/ci.yml](.github/workflows/ci.yml) | Python setup, dependency install, and the pytest step are TODO stubs. |
+| [Dockerfile](Dockerfile) | Python 3.13 slim, `WORKDIR`, dependencies, explicit app/data copy, and `python main.py`. |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) | Python 3.13 setup, pip caching, dependency install, and pytest. |
 
-> Talking point: both files carry guiding TODO comments. This mirrors a real
-> onboarding task — "finish the pipeline" — and shows Copilot turning intent in
-> comments into working DevOps config.
+> Talking point: review the completed configuration, manifest-before-source
+> Docker layer caching, and the shared local/CI coverage gate in `pytest.ini`.
 
 ### A1. Complete the Dockerfile
 
@@ -661,7 +661,8 @@ docker build -t budget-buddy .
 docker run --rm budget-buddy
 ```
 
-> Presenter note: if Docker isn't installed, just review the generated file and
+> Presenter note: Docker Desktop's Linux engine must be running. If Docker is
+> unavailable, just review the generated file and
 > explain the layer-caching order (manifest before source). No build required to
 > make the teaching point.
 

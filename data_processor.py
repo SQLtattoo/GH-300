@@ -1,8 +1,8 @@
 """
 Transaction processing helpers for the Budget Buddy demo app.
 
-This starter module intentionally includes inefficient logic, permissive
-validation, and TODOs so GitHub Copilot can improve it during the workshop.
+This module intentionally retains inefficient logic and permissive validation
+so GitHub Copilot can improve it during the workshop.
 """
 
 from collections import defaultdict
@@ -35,22 +35,14 @@ class TransactionProcessor:
         return [item for item in transactions if item.get("type") == "expense"]
 
     def group_expenses_by_category(self, transactions: List[Transaction]) -> Dict[str, float]:
-        """Return expense totals grouped by category."""
+        """Return normalized expense totals with a single pass over transactions."""
         self.processed_count += 1
         totals: Dict[str, float] = defaultdict(float)
-        expenses = self.expenses_only(transactions)
-
-        # PERFORMANCE ISSUE: This nested loop is easy to refactor with one pass.
-        for expense in expenses:
+        for expense in transactions:
+            if expense.get("type") != "expense":
+                continue
             category = self.normalize_category(str(expense.get("category", "")))
-            for candidate in expenses:
-                candidate_category = self.normalize_category(str(candidate.get("category", "")))
-                if candidate_category == category:
-                    totals[category] += float(candidate.get("amount", 0))
-            expenses = [
-                item for item in expenses
-                if self.normalize_category(str(item.get("category", ""))) != category
-            ]
+            totals[category] += float(expense.get("amount", 0))
 
         return dict(totals)
 
@@ -86,14 +78,54 @@ class TransactionProcessor:
 
         return True
 
-    # TODO: Create sort_transactions(transactions, field, descending=False)
-    # It should sort by date, merchant, category, or amount and reject unknown fields.
+    def sort_transactions(
+        self, transactions: List[Transaction], field: str, descending: bool = False
+    ) -> List[Transaction]:
+        """Return a sorted copy, using numeric comparison for amounts."""
+        if field not in ("date", "merchant", "category", "amount"):
+            raise ValueError(f"Unsupported sort field: {field}")
+        self.processed_count += 1
+        if field == "amount":
+            return sorted(transactions, key=lambda item: float(item[field]), reverse=descending)
+        return sorted(transactions, key=lambda item: str(item[field]), reverse=descending)
 
-    # TODO: Create spending_alerts(transactions, category_limits)
-    # It should return categories where spending is above the configured limit.
+    def spending_alerts(
+        self, transactions: List[Transaction], category_limits: Dict[str, float]
+    ) -> Dict[str, float]:
+        """Return normalized categories and spending totals above their limits."""
+        self.processed_count += 1
+        totals: Dict[str, float] = defaultdict(float)
+        for item in self.expenses_only(transactions):
+            category = self.normalize_category(str(item.get("category", "")))
+            totals[category] += float(item["amount"])
+        limits = {self.normalize_category(category): limit
+                  for category, limit in category_limits.items()}
+        return {category: total for category, total in totals.items()
+                if category in limits and total > limits[category]}
 
-    # TODO: Create summarize_by_merchant(transactions)
-    # It should return total spending by merchant.
+    def summarize_by_merchant(self, transactions: List[Transaction]) -> Dict[str, float]:
+        """Return expense totals by merchant, excluding income."""
+        self.processed_count += 1
+        totals: Dict[str, float] = defaultdict(float)
+        for item in self.expenses_only(transactions):
+            totals[str(item["merchant"])] += float(item["amount"])
+        return dict(totals)
+
+    def top_merchants(
+        self, transactions: List[Transaction], limit: int = 5
+    ) -> List[Transaction]:
+        """Return the highest-spend merchants, ordered by spend then name."""
+        if limit < 0:
+            raise ValueError("limit must be nonnegative")
+        merchant_totals = self.summarize_by_merchant(transactions)
+        ranked = sorted(
+            merchant_totals.items(),
+            key=lambda item: (-item[1], item[0].casefold(), item[0]),
+        )
+        return [
+            {"merchant": merchant, "amount": amount}
+            for merchant, amount in ranked[:limit]
+        ]
 
     def get_processed_count(self) -> int:
         """Return the number of processing operations performed."""

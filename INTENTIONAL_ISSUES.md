@@ -20,12 +20,12 @@ Budget Buddy starts from a realistic but incomplete codebase. These issues are d
 | 3 | [data_processor.py](data_processor.py) | Category grouping mutates a list while using nested loops | Replace with one-pass aggregation |
 | 3 | [data_processor.py](data_processor.py) | Duplicate detection is O(n^2) | Use a tuple key and dictionary/set |
 
-## DevOps TODOs (Module 3)
+## Completed DevOps Work (Module 3)
 
-| File | Issue | Suggested Improvement |
+| File | Completed behavior | Verification |
 | --- | --- | --- |
-| [Dockerfile](Dockerfile) | Image build steps are stubbed with TODOs | Complete so `python main.py` runs in a container |
-| [.github/workflows/ci.yml](.github/workflows/ci.yml) | CI steps are stubbed with TODOs | Install deps and run pytest on push/PR |
+| [Dockerfile](Dockerfile) | Python 3.13 slim image, dependencies, app/data copy, and `python main.py` | Build and run with Docker Desktop's Linux engine running |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) | Python 3.13 setup, dependency install, and pytest with the existing coverage gate | Push or open a PR targeting main |
 
 ## TODOs For Feature Generation
 
